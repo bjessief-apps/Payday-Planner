@@ -1,6 +1,17 @@
 # Payday Planner
 
-**[bjessief-apps.github.io/Payday-Planner](https://bjessief-apps.github.io/Payday-Planner/)**
+**Try it:** https://bjessief-apps.github.io/Payday-Planner/ (tap "See an example" to look around)
+
+I wanted to stop guessing whether I could afford something before my next check came in. Payday Planner lines up each paycheck with the bills it has to cover and tells you what's actually safe to spend today.
+
+<table>
+  <tr>
+    <td align="center"><img src="screenshots/1-summary.png" width="220" alt="Safe to spend"><br><sub>Safe to spend</sub></td>
+    <td align="center"><img src="screenshots/2-calendar.png" width="220" alt="Paydays and bills by day"><br><sub>Paydays and bills by day</sub></td>
+  </tr>
+</table>
+
+<sub>Screenshots show the app's built-in example month, not real money.</sub>
 
 **Payday Planner is for tracking, mapping and planning your money.** It's interactive and depends on your real money moves: paydays, bills you pay, surprise expenses. It never connects to your bank and only knows what you tell it, so if it isn't updated, its numbers won't match your real money. The only set-and-forget parts are the ones you've automated in your bank apps, like automatic transfers or autopay.
 
