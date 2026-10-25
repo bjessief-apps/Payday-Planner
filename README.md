@@ -6,8 +6,9 @@ I wanted to stop guessing whether I could afford something before my next check 
 
 <table>
   <tr>
-    <td align="center"><img src="screenshots/1-summary.png" width="220" alt="Safe to spend"><br><sub>Safe to spend</sub></td>
-    <td align="center"><img src="screenshots/2-calendar.png" width="220" alt="Paydays and bills by day"><br><sub>Paydays and bills by day</sub></td>
+    <td align="center"><img src="screenshots/1-summary.png" width="220" alt="Safe to spend today"><br><sub>Safe to spend today</sub></td>
+    <td align="center"><img src="screenshots/2-calendar.png" width="220" alt="Every day's spending money"><br><sub>Every day's spending money</sub></td>
+    <td align="center"><img src="screenshots/3-paycheck.png" width="220" alt="Where each check goes"><br><sub>Where each check goes</sub></td>
   </tr>
 </table>
 

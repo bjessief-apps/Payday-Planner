@@ -3674,24 +3674,28 @@ body.savebar-open #toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
     const today = todayStr(), cur = ym(today), prev = shiftMonth(cur, -1);
     let fri = addDays(prev + '-01', -35);
     while (dow(fri) !== 5) fri = addDays(fri, -1);
-    s.sources.push({ id: uid(), name: 'Direct deposit', kind: 'deposit', lands: 'Checking', amount: 64000, freq: 'weekly', start: fri });
-    s.sources.push({ id: uid(), name: 'Side gig', kind: 'gig', lands: 'Cash App', amount: 18000, freq: 'once', start: cur + '-20' });
-    s.goals.push({ id: uid(), name: 'Emergency fund', target: 30000, method: 'date', date: monthRange(shiftMonth(cur, 2))[1], start: cur + '-01', from: 'all' },
-      { id: uid(), name: 'Car fund', target: 15000, method: 'amount', amount: 1500, start: cur + '-01', from: 'all' });
+    s.sources.push({ id: uid(), name: 'Direct deposit', kind: 'deposit', lands: 'Checking', amount: 90000, freq: 'weekly', start: fri });
+    s.sources.push({ id: uid(), name: 'Side gig', kind: 'gig', lands: 'Cash App', amount: 25000, freq: 'once', start: cur + '-20' });
+    s.goals.push({ id: uid(), name: 'Emergency fund', target: 50000, method: 'date', date: monthRange(shiftMonth(cur, 2))[1], start: cur + '-01', from: 'all' },
+      { id: uid(), name: 'Car fund', target: 60000, method: 'amount', amount: 2000, start: cur + '-01', from: 'all' });
     const mk = (name, amount, day) => ({ id: uid(), name, amount, freq: 'monthly', start: prev + '-' + pad(day) });
-    s.bills.push(mk('Rent', 128000, 1), mk('Internet', 7000, 5), mk('Streaming', 1599, 9), mk('Phone', 6500, 12), mk('Car insurance', 14800, 18), mk('Electric', 11600, 22), mk('Car payment', 31000, 26));
+    s.bills.push(mk('Rent', 105000, 1), mk('Internet', 6000, 5), mk('Streaming', 1599, 9), mk('Phone', 6500, 12), mk('Car insurance', 13500, 18), mk('Electric', 11000, 22), mk('Car payment', 28500, 26));
     S = s;
+    reindex();
+    // Set a piece of rent aside from each paycheck in the four weeks before it's due,
+    // the way most people budget for it, so no single check gets swallowed whole.
+    billsIn(prev + '-01', monthRange(shiftMonth(cur, 1))[1]).filter(b => b.name === 'Rent').forEach(b => {
+      const cs = checksIn(addDays(b.ds, -28), addDays(b.ds, -1)).filter(c => c.src && c.src.freq === 'weekly');
+      if (!cs.length) return;
+      const each = Math.floor(b.amount / cs.length);
+      cs.forEach((c, i) => setAlloc(b.key, c.key, i === cs.length - 1 ? b.amount - each * (cs.length - 1) : each));
+    });
     reindex();
     [cur, shiftMonth(cur, 1), prev].forEach(k => autoPlan(k, { includePast: true }));
     billsIn(prev + '-01', addDays(today, -1)).forEach(b => setEdit('billEdits', b.key, 'paid', true));
     const future = billsIn(today, addDays(today, 40));
     const el = future.find(b => b.name === 'Electric');
     if (el) S.allocs = S.allocs.filter(a => a.bill !== el.key);
-    const car = future.find(b => b.name === 'Car payment');
-    if (car) {
-      const as = S.allocs.filter(a => a.bill === car.key);
-      if (as.length) { S.allocs = S.allocs.filter(a => a.bill !== car.key || a === as[0]); as[0].amount = Math.min(as[0].amount, 15500); }
-    }
     const xd = cur + '-14', xc = coverCheck(xd);
     if (xc) S.expenses.push({ id: uid(), name: 'Tire repair', amount: 8500, ds: xd, check: xc });
     reindex();
